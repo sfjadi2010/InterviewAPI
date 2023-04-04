@@ -3,7 +3,7 @@
     public class Character
     {
         public Info info { get; set; }
-        public Result[] results { get; set; }
+        public CharacterResult[] results { get; set; }
     }
 
     
@@ -15,7 +15,7 @@
         public object prev { get; set; }
     }
 
-    public class Result
+    public class CharacterResult
     {
         public int id { get; set; }
         public string name { get; set; }

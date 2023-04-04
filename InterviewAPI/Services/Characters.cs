@@ -4,23 +4,44 @@ namespace InterviewAPI.Services
 {
     public class Characters : ICharacters
     {
-        public async Task<Character> GetChracter()
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public Characters(IHttpClientFactory httpClientFactory)
         {
-            using (HttpClient httpClient = new HttpClient()
+            _httpClientFactory = httpClientFactory;
+        }
+        public async Task<CharacterResult[]> GetChracter()
+        {
+            List<CharacterResult> characters = new List<CharacterResult>();
+
+            var httpClient = _httpClientFactory.CreateClient("character_client");
+
+            HttpResponseMessage response = await httpClient.GetAsync("character");
+
+            if (response.IsSuccessStatusCode)
             {
-                BaseAddress = new Uri("https://rickandmortyapi.com/api/")
-            }) {
-                HttpResponseMessage response = await httpClient.GetAsync("character");
+                var result = await response.Content.ReadFromJsonAsync<Character>();
 
-                if (response.IsSuccessStatusCode)
+                characters.AddRange(result.results);
+
+                if (result.info.count > 0)
                 {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                    var result = await response.Content.ReadFromJsonAsync<Character>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+                    for (int indx = 2; indx <= result.info.pages; indx++)
+                    {
 
-                    return result;
+                        response = await httpClient.GetAsync("character?page=" + indx);
+
+                        if (response.IsSuccessStatusCode )
+                        {
+                            result = await response.Content.ReadFromJsonAsync<Character>();
+
+                            characters.AddRange(result.results);
+                        }
+                    }
                 }
-            };
+
+                return characters.ToArray();
+            }
 
             return null;
         }

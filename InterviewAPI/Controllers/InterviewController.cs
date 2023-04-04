@@ -30,10 +30,9 @@ namespace InterviewAPI.Controllers
 
                 if (response != null)
                 {
-                    foreach(var result in response.results)
+                    foreach(var result in response)
                     {
-                        names.Append(result.name);
-                        names.Append("\n");
+                        names.AppendLine(result.name);
                     }
                 }
             }
@@ -43,10 +42,9 @@ namespace InterviewAPI.Controllers
 
                 if (response != null)
                 {
-                    foreach(var result in response.results)
+                    foreach (var result in response)
                     {
-                        names.Append(result.name);
-                        names.Append("\n");
+                        names.AppendLine(result.name);
                     }
                 }
             }

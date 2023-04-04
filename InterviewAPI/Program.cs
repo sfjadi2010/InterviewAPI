@@ -9,6 +9,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient<ICharacters, Characters>("character_client", client =>
+{
+    client.BaseAddress = new Uri("https://rickandmortyapi.com/api/");
+});
+builder.Services.AddHttpClient<IPlanets, Planets>("planets_client", client => 
+{
+    client.BaseAddress = new Uri("https://swapi.dev/api/");
+});
+
 builder.Services.AddScoped<ICharacters, Characters>();
 builder.Services.AddScoped<IPlanets, Planets>();
 

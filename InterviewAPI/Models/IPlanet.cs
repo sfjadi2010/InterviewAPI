@@ -2,6 +2,6 @@
 {
     public interface IPlanets
     {
-        public Task<Planet> GetPlanets();
+        public Task<PLanetResult[]> GetPlanets();
     }
 }

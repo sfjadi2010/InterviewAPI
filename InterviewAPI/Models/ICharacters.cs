@@ -2,6 +2,6 @@
 {
     public interface ICharacters
     {
-        public Task<Character> GetChracter();
+        public Task<CharacterResult[]> GetChracter();
     }
 }
