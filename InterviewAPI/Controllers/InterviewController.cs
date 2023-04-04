@@ -30,10 +30,10 @@ namespace InterviewAPI.Controllers
 
                 if (response != null)
                 {
-                    foreach(var result in response)
-                    {
-                        names.AppendLine(result.name);
-                    }
+                    response.
+                        Select(x => x.name).
+                        ToList().
+                        ForEach(x => names.AppendLine(x));
                 }
             }
             else
@@ -42,11 +42,12 @@ namespace InterviewAPI.Controllers
 
                 if (response != null)
                 {
-                    foreach (var result in response)
-                    {
-                        names.AppendLine(result.name);
-                    }
+                    response.Select(x => x.name).
+                        ToList().
+                        ForEach(x => names.AppendLine(x));
                 }
+
+                
             }
 
             return Ok(names.ToString());
