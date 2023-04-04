@@ -17,6 +17,8 @@ builder.Services.AddHttpClient<IPlanets, Planets>("planets_client", client =>
 {
     client.BaseAddress = new Uri("https://swapi.dev/api/");
 });
+builder.Services.AddScoped<IPlanets, Planets>();
+builder.Services.AddScoped<ICharacters, Characters>();
 
 var app = builder.Build();
 
