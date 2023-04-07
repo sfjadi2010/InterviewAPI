@@ -42,7 +42,8 @@ namespace InterviewAPI.Controllers
 
                 if (response != null)
                 {
-                    response.Select(x => x.name).
+                    response.
+                        Select(x => x.name).
                         ToList().
                         ForEach(x => names.AppendLine(x));
                 }
